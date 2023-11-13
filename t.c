@@ -245,25 +245,48 @@ const char *convert_unit_to_string(TemperatureUnit unit)
 
 int main()
 {
-  // Выводим заголовок таблицы
-  printf("%-15s", "");
+  const int max_unit_name_length = 9; // Максимальная длина наименования единицы измерения
+
+  // Вывод заголовка таблицы
+  printf("%-*s | ", max_unit_name_length, ""); // Пустая ячейка в верхнем левом углу
+
   for (int i = 0; i < 12; ++i)
   {
-    printf("%-15s", convert_unit_to_string(i));
+    printf("%-*s | ", max_unit_name_length, convert_unit_to_string(i));
   }
   printf("\n");
 
-  // Итерируем по всем комбинациям единиц измерения
+  // Вывод разделительной строки
+  for (int i = 0; i < 13; ++i)
+  {
+    for (int j = 0; j < max_unit_name_length + 3; ++j)
+    {
+      printf("-");
+    }
+  }
+  printf("\n");
+
+  // Итерация по всем комбинациям единиц измерения и вывод значений
   for (int from_unit = 0; from_unit < 12; ++from_unit)
   {
-    printf("%-15s", convert_unit_to_string(from_unit));
+    printf("%-*s | ", max_unit_name_length, convert_unit_to_string(from_unit));
 
     for (int to_unit = 0; to_unit < 12; ++to_unit)
     {
-      double converted_temperature = convert_temperature(0, from_unit, to_unit);
-      printf("%-15.4f", converted_temperature);
+      double converted_temperature = convert_temperature(20.01, from_unit, to_unit);
+      printf("%-*.*f | ", max_unit_name_length, 4, converted_temperature);
     }
 
+    printf("\n");
+
+    // Вывод разделительной строки
+    for (int i = 0; i < 13; ++i)
+    {
+      for (int j = 0; j < max_unit_name_length + 3; ++j)
+      {
+        printf("-");
+      }
+    }
     printf("\n");
   }
 
