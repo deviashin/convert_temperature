@@ -209,3 +209,63 @@ static double convert_temperature(double temperature, TemperatureUnit from_unit,
 
   return temperature_converters[from_unit][to_unit](temperature);
 }
+
+const char *convert_unit_to_string(TemperatureUnit unit)
+{
+  switch (unit)
+  {
+  case CELSIUS:
+    return "Цельсий (°C)";
+  case FAHRENHEIT:
+    return "Фаренгейт (°F)";
+  case KELVIN:
+    return "Кельвин (°K)";
+  case RANKINE:
+    return "Реомюр (°Ré, °Re, °R)";
+  case REAUMUR:
+    return "Рёмер (°Rø)";
+  case ROMER:
+    return "Ранкин (°Ra)";
+  case DELISLE:
+    return "Делиль (°Д или °D)";
+  case HUKE:
+    return "Гук (°H)";
+  case DALTON:
+    return "Дальтон (°Dа)";
+  case NEWTON:
+    return "Ньютон (°N)";
+  case LEIDEN:
+    return "Лейден (°L или ÐL)";
+  case PLANCK:
+    return "Планк (TP)";
+  default:
+    return "Неизвестная единица измерения!";
+  }
+}
+
+int main()
+{
+  // Выводим заголовок таблицы
+  printf("%-15s", "");
+  for (int i = 0; i < 12; ++i)
+  {
+    printf("%-15s", convert_unit_to_string(i));
+  }
+  printf("\n");
+
+  // Итерируем по всем комбинациям единиц измерения
+  for (int from_unit = 0; from_unit < 12; ++from_unit)
+  {
+    printf("%-15s", convert_unit_to_string(from_unit));
+
+    for (int to_unit = 0; to_unit < 12; ++to_unit)
+    {
+      double converted_temperature = convert_temperature(0, from_unit, to_unit);
+      printf("%-15.4f", converted_temperature);
+    }
+
+    printf("\n");
+  }
+
+  return 0;
+}
